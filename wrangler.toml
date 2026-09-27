@@ -5,7 +5,7 @@ compatibility_date = "2026-09-27"
 [[d1_databases]]
 binding = "DB"
 database_name = "loophole"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "a2f0aed4-567e-41ec-9c72-1c8a4a6decc3"
 migrations_dir = "migrations"
 
 [triggers]
