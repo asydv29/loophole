@@ -1,0 +1,1 @@
+{"name":"loophole-worker","private":true,"scripts":{"typecheck":"tsc --noEmit"},"dependencies":{"hono":"latest"},"devDependencies":{"typescript":"latest","@cloudflare/workers-types":"latest","wrangler":"latest"}}
