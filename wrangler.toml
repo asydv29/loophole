@@ -1,0 +1,16 @@
+name = "loophole"
+main = "worker/index.ts"
+compatibility_date = "2026-09-27"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "loophole"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[triggers]
+crons = ["*/15 * * * *"]
+
+[vars]
+ENVIRONMENT = "production"
+# Store ADMIN_TOKEN with: wrangler secret put ADMIN_TOKEN
