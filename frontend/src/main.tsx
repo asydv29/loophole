@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';import{createRoot}from'react-dom/client';import'./styles/app.css';
 
 type Source={id:string,name:string};type Video={id:string;sourceId:string;sourceName:string;externalId:string;title:string;thumbnailUrl?:string;originalUrl:string;creator?:string;duration?:number;publishedAt?:string;viewCount?:number;downloadAllowed?:boolean;downloadUrl?:string};
-const api=async<T>(url:string)=>{const r=await fetch(url);if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json() as Promise<T>};
+const api=async <T,>(url:string)=>{const r=await fetch(url);if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json() as Promise<T>};
 function fmtDuration(s?:number){if(s==null)return'';const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return h?`${h}:${String(m).padStart(2,'0')}:${String(x).padStart(2,'0')}`:`${m}:${String(x).padStart(2,'0')}`}
 function App(){const[sources,setSources]=useState<Source[]>([]),[videos,setVideos]=useState<Video[]>([]),[source,setSource]=useState(''),[q,setQ]=useState(''),[theme,setTheme]=useState(localStorage.getItem('theme')||'system'),[loading,setLoading]=useState(true),[err,setErr]=useState('');
 useEffect(()=>{api<{sources:Source[]}>('/api/sources').then(x=>setSources(x.sources)).catch(e=>setErr(e.message))},[]);
