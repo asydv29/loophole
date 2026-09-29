@@ -36,3 +36,6 @@ Never put source credentials in browser code. Use Worker Secrets. Never re-host 
 - Add structured sync jobs with retries/backoff and per-source failure isolation.
 - Add age-gate/consent UX and review applicable laws, source terms, and hosting-provider policies before production use.
 - Add automated tests for pagination, duplicate constraints, missing metadata, failed adapters, admin authorization, and sync idempotency.
+
+## Admin source testing
+The Admin Panel supports API/RSS/Atom/feed/adapter configuration and a server-side Test Connection endpoint. Test requests are restricted to the configured source host or its subdomains, reject private/loopback/metadata hosts, cap response size, and do not expose Worker Secrets. A real source adapter is still required before synchronization can import videos.
