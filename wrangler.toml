@@ -14,3 +14,8 @@ crons = ["*/15 * * * *"]
 [vars]
 ENVIRONMENT = "production"
 # Store ADMIN_TOKEN with: wrangler secret put ADMIN_TOKEN
+
+[assets]
+directory = "./frontend/dist"
+binding = "ASSETS"
+
