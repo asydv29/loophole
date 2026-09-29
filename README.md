@@ -39,3 +39,7 @@ Never put source credentials in browser code. Use Worker Secrets. Never re-host 
 
 ## Admin source testing
 The Admin Panel supports API/RSS/Atom/feed/adapter configuration and a server-side Test Connection endpoint. Test requests are restricted to the configured source host or its subdomains, reject private/loopback/metadata hosts, cap response size, and do not expose Worker Secrets. A real source adapter is still required before synchronization can import videos.
+
+
+## v6 fix
+Fixed the admin source INSERT statement: 12 columns now receive exactly 12 values.
