@@ -30,6 +30,14 @@ app.delete('/api/admin/sources/:id',async c=>{await c.env.DB.prepare('DELETE FRO
 app.post('/api/admin/sources/:id/test',async c=>{const s:any=await c.env.DB.prepare('SELECT * FROM sources WHERE id=?').bind(c.req.param('id')).first();if(!s)return c.json({ok:false,message:'Source not found'},404);const factory=getAdapter(s.adapter);if(!factory)return c.json({ok:false,message:`Adapter '${s.adapter}' is not registered`},400);try{const result=await factory(JSON.parse(s.configuration||'{}'),c.env as any).validateConfiguration();return c.json(result)}catch(e){return c.json({ok:false,message:e instanceof Error?e.message:'Adapter test failed'},502)}});
 app.post('/api/admin/sources/:id/sync',async c=>c.json({status:'queued',sourceId:c.req.param('id')}));
 app.post('/api/admin/sync-all',async c=>c.json({status:'queued'}));
-app.all('*',c=>c.env.ASSETS.fetch(c.req.raw));
+app.all('*',async c=>{
+  if(c.req.method !== 'GET') return c.env.ASSETS.fetch(c.req.raw);
+  const path=new URL(c.req.url).pathname;
+  const last=path.split('/').pop()||'';
+  const looksLikeAsset=last.includes('.');
+  if(path.startsWith('/api/') || looksLikeAsset) return c.env.ASSETS.fetch(c.req.raw);
+  const indexUrl=new URL('/index.html',c.req.url);
+  return c.env.ASSETS.fetch(new Request(indexUrl,c.req.raw));
+});
 app.onError((e,c)=>c.json({error:'Internal server error',detail:e.message},500));
 export default app;
